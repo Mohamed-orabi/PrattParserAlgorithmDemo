@@ -69,6 +69,42 @@ Step 8: Combine Results
  - The led function for Multiply combines 2 and 3 to compute 2 * 3 = 6.
  - The led function for Plus combines 1 and 6 to compute 1 + 6 = 7.
 
-Final Result
-The parsed result is 7.
+Final Result:
+   The parsed result is 7.
+
+---
+
+# Pseudocode for the Algorithm
+
+```
+function ParseExpression(precedence):
+    token = Consume()
+    left = Nud(token)  // Handle prefix operators or numbers
+
+    while precedence < GetPrecedence(Peek()):
+        token = Consume()
+        left = Led(token, left)  // Handle infix operators
+
+    return left
+
+function Nud(token):
+    if token is a number:
+        return token.value
+    if token is a unary operator (e.g., '-'):
+        return -ParseExpression(precedence of unary operator)
+    if token is '(':
+        result = ParseExpression(0)
+        Expect(')')
+        return result
+    else:
+        throw error
+
+function Led(token, left):
+    if token is a binary operator (e.g., '+', '-', '*', '/'):
+        right = ParseExpression(precedence of token)
+        return left + right  // Or perform the appropriate operation
+    else:
+        throw error
+```
+
 
